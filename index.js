@@ -3,34 +3,28 @@ document.addEventListener("DOMContentLoaded", cargaInicial)
 function cargaInicial(){
     verCarrito()
 }
-const shop = document.getElementById("tienda")
+//const shop = document.getElementById("tienda")
 
 
-const productos = [
-    {
-        id: 1,
-        nombre:"Pantalon Jemma",
-        precio: 3000,
-        img:"https://psychic.com.ar/wp-content/uploads/2023/06/4220.jpg"
 
-    },
-    {
-        id: 2,
-        nombre:"Top Venus",
-        precio:1000,
-        img: "https://psychic.com.ar/wp-content/uploads/2023/04/p1163-3.jpg",
-
-    },
-    {
-        id: 3,
-        nombre:"Buzo oversize",
-        precio:2000,
-        img:"https://psychic.com.ar/wp-content/uploads/2023/05/P898.png"
-
-    },
-]
 
 let carrito = []
+
+
+async function obtenerProductos(){
+    const respuesta = await fetch("productos.json")
+
+    const productos = await respuesta.json()
+    
+    return productos
+}
+
+async function mostrarProductos(){
+    const productos = await obtenerProductos()
+
+    const contenedor = document.getElementById("tienda")
+
+ 
 
 productos.forEach((product)=> {
    let producto = document.createElement("div")
@@ -41,45 +35,42 @@ productos.forEach((product)=> {
        <div id=${product.id} class="card-body">
         <h5 class="card-title">${product.nombre}</h5>
         <p class="card-text">$${product.precio}</p>
-        
+        <button id="${product.id}">Agregar al carrito</button>
         </div>
         </div>`
       
-     shop.append(producto)
+     contenedor.appendChild(producto)
 
-   let comprar = document.createElement("button")
-    comprar.innerText =  "Agregar al carrito"
-    comprar.className= "agregar al carrito"
+     const btnComprar = document.getElementById(`${product.id}`)
+     btnComprar.addEventListener("click", () =>{
+        console.log(product.id)
+       
 
-   producto.append(comprar);
-
-   comprar.addEventListener("click", () =>{
-       agregarAlCarrito(product.id);
-   })
-})
-
-
-function  agregarAlCarrito(id){
-    let producto = productos.find(product => product.id == id)
+        let producto = productos.find(product => product.id == product.id)
      
-    let productoComprado = carrito.find(producto => producto.id == id)
+                 let productoComprado = carrito.find(producto => producto.id == product.id)
 
-    if(productoComprado){
-        productoComprado.cantidad++
-
-    }else{
-        producto.cantidad = 1
-        carrito.push(producto)
-    }
+                  if(productoComprado){
+             productoComprado.cantidad++
+              }else{
+                producto.cantidad = 1
+               carrito.push(producto)
+                }
+ })
+ verCarrito(producto.id)
+    })
+    
+    
+    guardarCarrito()
+     }
   
- verCarrito()
- guardarCarrito()
- }
-   
+function verCarrito(id){
+    console.log(id)
 
+     
 
-function verCarrito(){
-    const vercarrito = document.getElementById("carrito")
+const vercarrito = document.getElementById("carrito")
+  
 
     vercarrito.innerHTML = ''
 
@@ -104,9 +95,19 @@ function verCarrito(){
              producto.querySelector("button").addEventListener("click", ()=>{
               eliminarProductos(index)
              })
+          
         
 })
- }
+ guardarCarrito()
+  }
+ 
+  
+
+mostrarProductos()
+
+ 
+
+
 
  function eliminarProductos(indice){
    carrito[indice].cantidad--;
@@ -133,7 +134,9 @@ function verCarrito(){
     }
      }
 
+     
 
+ 
 
 
 
