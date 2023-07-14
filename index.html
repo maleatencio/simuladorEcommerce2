@@ -6,21 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">
 
     <body>
         <main>
-            <div id="tienda">
-                <h1>Tienda</h1>
+            <div class="nav-container">
+                <nav class="navbar">
+                    <h1 class="logo">Shop</h1>
+                    <h1 class="ver-carrito" id="verCarrito">🛒</h1>
+                   
+                </nav>
             </div>
-            <h1>Carrito</h1>
-            <div id="carrito">
+
+            <h1>Tienda</h1>
+            
+            <div id="tienda" class="tienda">
+               
             </div>
+
+           
+            <div id="modal-container" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Carrito de compras</h2>
+                    <div class="contenedor_compras">
+                      
+                      <div class="tbody">
+                        <div class="columna_1">
+                            <img alt="" class="img_cart">
+                        </div>
+                        <div class="columna_2">
+                          Nombre del producto
+                        </div>
+                        <div class="columna_3">
+                          <input type="number">
+                        </div>
+                        <div class="columna_4">
+                          Precio
+                        </div>
+                        <div>
+                          <button>X</button>
+                        </div>
+                      </div>
+                      <button id="button2">Pagar</button>
+                    </div>
+                </div>
+             </div>
+
             <div id="total">
                 <h1>Total</h1>
             </div>
         </main>
     <script src="index.js"></script>
+    <script src="modal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
     </html>
 
